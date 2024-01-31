@@ -27,16 +27,15 @@ app.post('/send-email', async (req, res) => {
       to: mainmail,
       subject: 'New Inquiry',
       html: `
-      <img src="http://platinumhldg.com/Logo/Logo1.png" alt="Platinum Logo" width="150" height="100" />
-        <p><strong>Name:</strong> ${name || 'Not provided'}</p>
-        <p><strong>Email:</strong> ${email || 'Not provided'}</p>
-        <p><strong>Phone Number:</strong> ${phoneNumber || 'Not provided'}</p>
-        <p><strong>Budget:</strong> ${budget || 'Not provided'}</p>
-        <p><strong>Comments:</strong> ${comments || 'Not provided'}</p>
+          <p><strong>Name:</strong> ${name || 'Not provided'}</p>
+          <p><strong>Email:</strong> ${email || 'Not provided'}</p>
+          <p><strong>Phone Number:</strong> ${phoneNumber || 'Not provided'}</p>
+          <p><strong>Budget:</strong> ${budget || 'Not provided'}</p>
+          <p><strong>Comments:</strong> ${comments || 'Not provided'}</p>
+          <img src="http://platinumhldg.com/Logo/Logo1.png" alt="Platinum Logo" width="150" height="95" />
       `
     };
 
-    const inquiryInfo = await transporter.sendMail(inquiryMailOptions);
 
     const thankYouMailOptions = {
       from: mainmail,
@@ -44,22 +43,18 @@ app.post('/send-email', async (req, res) => {
       subject: 'Thank You for Contacting Us',
       html: `
         <p>Dear ${name || 'Customer'},</p>
-        <p>Thank you for contacting us! We have received your inquiry and will respond as soon as possible.</p>
-        <p>Feel free to contact us by phone or email:</p>
+        <p>We sincerely appreciate your inquiry and the opportunity to assist you. Thank you for considering Platinum Holdings for your needs.</p>
+        <p>Your message has been received, and our team will review it promptly. Please be assured that we will respond to you as soon as possible with the information you require.</p>
+        <p>Should you have any urgent matters, feel free to contact us directly using the following details:</p>
         <p>Email: info@platinumhldg.com</p>
-        <p>Tel: 961 5 950 460</p>
+        <p>Telephone: 961 5 950 460</p>
         <p>Cell: 961 78 850 805 / 961 71 109 209</p>
-        <p>Hazmieh, Martakla, Facing the Ministry of Works,</p>
-        <p>Platinum Building 3rd Floor</p>
-     
-        <img src="http://platinumhldg.com/Logo/Logo1.png" alt="Platinum Logo" width="150" height="100" />
+        <p>Our offices are located in Hazmieh, Martakla, Facing the Ministry of Works, Platinum Building 3rd Floor.</p>
+    
+        <img src="http://platinumhldg.com/Logo/Logo1.png" alt="Platinum Logo" width="150" height="95" />
       `
     };
 
-    const thankYouInfo = await transporter.sendMail(thankYouMailOptions);
-
-    console.log('Inquiry email sent: ', inquiryInfo);
-    console.log('Thank-you email sent: ', thankYouInfo);
 
     res.status(200).json({ message: 'Emails sent successfully' });
   } catch (error) {
