@@ -21,21 +21,21 @@ app.post('/send-email', async (req, res) => {
         pass: MainPass
       }
     });
-
     const inquiryMailOptions = {
       from: email,
       to: mainmail,
       subject: 'New Inquiry',
       html: `
+        <img src="http://platinumhldg.com/Logo/Logo1.png" alt="Platinum Logo" width="150" height="95" />
           <p><strong>Name:</strong> ${name || 'Not provided'}</p>
           <p><strong>Email:</strong> ${email || 'Not provided'}</p>
           <p><strong>Phone Number:</strong> ${phoneNumber || 'Not provided'}</p>
           <p><strong>Budget:</strong> ${budget || 'Not provided'}</p>
           <p><strong>Comments:</strong> ${comments || 'Not provided'}</p>
-          <img src="http://platinumhldg.com/Logo/Logo1.png" alt="Platinum Logo" width="150" height="95" />
       `
     };
 
+    const inquiryInfo = await transporter.sendMail(inquiryMailOptions);
 
     const thankYouMailOptions = {
       from: mainmail,
@@ -55,6 +55,10 @@ app.post('/send-email', async (req, res) => {
       `
     };
 
+    const thankYouInfo = await transporter.sendMail(thankYouMailOptions);
+
+    console.log('Inquiry email sent: ', inquiryInfo);
+    console.log('Thank-you email sent: ', thankYouInfo);
 
     res.status(200).json({ message: 'Emails sent successfully' });
   } catch (error) {
