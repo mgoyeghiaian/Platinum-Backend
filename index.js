@@ -7,19 +7,21 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const mainmail = 'mgoyeghiaian@gmail.com';
-const MainPass = 'rmkrobuqoreiaudm';
+const mainmail = 'Info@platinumhldg.com';
+const MainPass = 'Jod59822';
 
 app.post('/send-email', async (req, res) => {
   try {
     const { name, email, phoneNumber, budget, comments } = req.body;
 
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'mail.smtp2go.com',
+      port: 2525,
+      secure: false,
       auth: {
         user: mainmail,
-        pass: MainPass
-      }
+        pass: MainPass,
+      },
     });
     const inquiryMailOptions = {
       from: email,
